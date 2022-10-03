@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HeroService {
-  private heroesUrl = 'api/heroes';
+  private heroesUrl = 'api/heroes_2';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

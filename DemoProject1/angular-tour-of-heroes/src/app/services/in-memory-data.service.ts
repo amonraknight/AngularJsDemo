@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Hero } from '../interfaces/hero';
 
 @Injectable({
@@ -10,7 +9,7 @@ export class InMemoryDataService {
   constructor() { }
   
   createDb() {
-    const heroes = [
+    const heroes_1 = [
       { id: 12, name: 'Dr. Nice' },
       { id: 13, name: 'Bombasto' },
       { id: 14, name: 'Celeritas' },
@@ -21,7 +20,19 @@ export class InMemoryDataService {
       { id: 19, name: 'Magma' },
       { id: 20, name: 'Tornado' }
     ];
-    return {heroes};
+
+    const heroes_2 = [
+      { id: 1, name: 'Thur' },
+      { id: 2, name: 'Locky' },
+      { id: 3, name: 'Ironman' },
+      { id: 4, name: 'Spiderman' },
+      { id: 5, name: 'Batman' },
+      { id: 6, name: 'Dynama' },
+      { id: 7, name: 'Dr. IQ' },
+      { id: 8, name: 'Magma' },
+      { id: 9, name: 'Tornado' }
+    ];
+    return {heroes_1, heroes_2};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.

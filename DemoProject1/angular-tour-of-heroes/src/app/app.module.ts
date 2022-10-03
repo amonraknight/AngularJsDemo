@@ -12,6 +12,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -21,15 +22,17 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+    HttpClientInMemoryWebApiModule
+    .forRoot(
+      InMemoryDataService, { dataEncapsulation: false}
     )
   ],
   providers: [],

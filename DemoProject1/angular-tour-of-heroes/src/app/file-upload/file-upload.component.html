@@ -1,0 +1,7 @@
+<p>file-upload works!</p>
+<div class="form-group">
+    <label for="file">Choose File</label>
+    <!--<input type="file" id="file"  [(ngModel)]="fileToUpload">-->
+    <input type="file" id="file" (change)="handleFileInput($event)">
+    <button *ngIf="fileToUpload" (click)="uploadFileToActivity()">upload</button>
+</div>
