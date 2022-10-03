@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -15,30 +15,22 @@ export class FileUploadService {
   constructor(private http: HttpClient) { }
 
   
-  postFile(fileToUpload:File): Observable<boolean> {
+  postFile(fileToUpload:File): Observable<string> {
     const endpoint = "http://127.0.0.1:8001/file_upload/";
     const formData: FormData = new FormData();
     formData.append("file", fileToUpload, fileToUpload.name);
-    return this.http.post(endpoint, formData)
-    .pipe(map(() => {return true;}));
-  }
-
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-  
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-  
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+    return this.http.post(endpoint, formData, {responseType: 'text'})
+    .pipe(
+      tap( // Log the result or error
+      {
+        next: (data) => this.log(data),
+        error: (error) => this.log(error)
+      }
+    ))
   }
 
   private log(message: string) {
-    console.log(message);
+    console.info(message)
   }
+  
 }

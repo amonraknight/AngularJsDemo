@@ -24,11 +24,14 @@ export class FileUploadComponent implements OnInit {
     }
     
   }
-  
 
   uploadFileToActivity() {
     if(this.fileToUpload!=null){
-      this.fielUploadService.postFile(this.fileToUpload).subscribe(data =>{})
+      this.fielUploadService.postFile(this.fileToUpload).subscribe(
+        data => {
+          console.info(data)
+        }
+      )
     }
   }
 
