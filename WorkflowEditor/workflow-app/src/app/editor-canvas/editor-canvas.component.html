@@ -1,0 +1,24 @@
+<p>editor-canvas works!</p>
+<div class="palette">
+    <div *ngFor="let item of items" [ngFlowchartStep]="{
+      template: stepContent,
+      type: item.type,
+      data: item.data
+    }">
+        <span>{{item.name}}</span>
+    </div>
+</div>
+<div class="some-container-with-large-dimensions"  ngFlowchartCanvas></div>
+
+
+
+<ng-template #stepContent>
+    <div class="step-container">
+        <div class="step-heading">
+            heading
+        </div>
+        <div class="step-content">
+            content
+        </div>
+    </div>
+</ng-template>
