@@ -5,11 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditorCanvasComponent } from './editor-canvas/editor-canvas.component';
 import { NgFlowchartModule } from '@joelwenzel/ng-flowchart';
+import { CustomStepComponent } from './custom-step/custom-step.component';
+import { FormStepComponent } from './form-step/form-step.component';
+import { NestedFlowComponent } from './nested-flow/nested-flow.component';
+import { RouteStepComponent } from './custom-step/route-step/route-step.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditorCanvasComponent
+    EditorCanvasComponent,
+    CustomStepComponent,
+    FormStepComponent,
+    NestedFlowComponent,
+    RouteStepComponent
   ],
   imports: [
     BrowserModule,
