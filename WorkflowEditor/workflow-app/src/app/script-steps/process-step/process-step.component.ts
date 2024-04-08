@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgFlowchartStepComponent, NgFlowchart } from '@joelwenzel/ng-flowchart';
+
 
 @Component({
   selector: 'app-process-step',
@@ -7,15 +8,28 @@ import { NgFlowchartStepComponent, NgFlowchart } from '@joelwenzel/ng-flowchart'
   styleUrls: ['./process-step.component.css']
 })
 export class ProcessStepComponent extends NgFlowchartStepComponent implements OnInit {
-  override ngOnInit(): void {}
+
+  override ngOnInit(): void {
+
+  }
 
   override canDrop(dropEvent: NgFlowchart.DropTarget): boolean {
     return true;
   }
 
-  delete() {
+  delete(): void {
     //recursively delete
     this.destroy(false);
   }
+
+  showModal = false
+  openModal(): void {
+    this.showModal = true
+  }
+
+  closeModal(): void {
+    this.showModal = false
+  }
+
 
 }

@@ -13,6 +13,9 @@ import { RouteStepComponent } from './custom-step/route-step/route-step.componen
 import { ProcessStepComponent } from './script-steps/process-step/process-step.component';
 import { ConditionalRedirectStepComponent } from './script-steps/conditional-redirect-step/conditional-redirect-step.component';
 import { RepeatStepComponent } from './script-steps/repeat-step/repeat-step.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+
+import 'node_modules/codemirror/mode/python/python'
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { RepeatStepComponent } from './script-steps/repeat-step/repeat-step.comp
     BrowserModule,
     AppRoutingModule,
     NgFlowchartModule,
-    FormsModule
+    FormsModule,
+    CodemirrorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

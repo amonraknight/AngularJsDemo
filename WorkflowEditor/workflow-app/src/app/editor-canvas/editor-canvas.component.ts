@@ -7,6 +7,7 @@ import { NestedFlowComponent } from '../nested-flow/nested-flow.component';
 import { ProcessStepComponent } from '../script-steps/process-step/process-step.component';
 import { ConditionalRedirectStepComponent } from '../script-steps/conditional-redirect-step/conditional-redirect-step.component';
 import { RepeatStepComponent } from '../script-steps/repeat-step/repeat-step.component';
+import { StepInfo } from '../interfaces/stepInfo'
 
 @Component({
   selector: 'app-editor-canvas',
@@ -33,74 +34,25 @@ export class EditorCanvasComponent implements AfterViewInit {
   @ViewChild('normalStep')
   normalStepTemplate!: TemplateRef<any>;
 
-  sampleJson = '{"root":{"id":"s1674421266194","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421267975","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421269738","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},{"id":"s1674421268826","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},"connectors":[{"startStepId":"s1674421269738","endStepId":"s1674421268826"}]}';
-/*
- ** The 
-  items = [
-    {
-      name: 'Logger',
-      type: 'log',
-      data: {
-        name: 'Log',
-        icon: { name: 'log-icon', color: 'blue' },
-        config: {
-          message: null,
-          severity: null,
-        },
-      },
-    },
-  ];
-*/
-
-  customOps = [
-    /*
-    {
-      paletteName: 'Router',
-      step: {
-        template: CustomStepComponent,
-        type: 'router',
-        data: {
-          name: 'Routing Block',
-        },
-        icon: '#home'
-      },
-    },
-    {
-      paletteName: 'Form Step',
-      step: {
-        template: FormStepComponent,
-        type: 'form-step',
-        data: '123',
-        icon: '#home'
-      },
-    },
-    {
-      paletteName: 'Nested Flow',
-      step: {
-        template: NestedFlowComponent,
-        type: 'nested-flow',
-        data: {
-          name: 'Nested Flow',
-        },
-        icon: '#home'
-      },
-    },
-    */
-    {
-      paletteName: 'Process Step',
+  //sampleJson = '{"root":{"id":"s1674421266194","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421267975","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421269738","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},{"id":"s1674421268826","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},"connectors":[{"startStepId":"s1674421269738","endStepId":"s1674421268826"}]}';
+  sampleJson = '{"root":{"id":"s1712564629305","type":"process-step","data":{"name":"ProcessStep","prompt":"","pythonCode":"","loopOver":""},"children":[{"id":"s1712564631270","type":"conditional-step","data":{"name":"ConditionalStep","prompt":"","pythonCode":"","loopOver":""},"children":[]},{"id":"s1712564634885","type":"process-step","data":{"name":"ProcessStep","prompt":"","pythonCode":"","loopOver":""},"children":[{"id":"s1712564637053","type":"repetative-step","data":{"name":"RepetativeStep","prompt":"","pythonCode":"","loopOver":""},"children":[]}]}]},"connectors":[]}'
+  processStepOp: StepInfo = {
+    paletteName: 'Process Step',
       step: {
         template: ProcessStepComponent,
         type: 'process-step',
         data: {
           name: 'Process Step',
           prompt: '',
-          pythonCode: ''
+          pythonCode: '',
+          loopOver: ''
         },
         icon: 'bi bi-terminal'
-      },
-    },
-    {
-      paletteName: 'Conditional Step',
+      }
+  }
+
+  conditionalStepOp: StepInfo = {
+    paletteName: 'Conditional Step',
       step: {
         template: ProcessStepComponent,
         type: 'conditional-step',
@@ -108,13 +60,14 @@ export class EditorCanvasComponent implements AfterViewInit {
           name: 'Conditional Step',
           prompt: '',
           pythonCode: '',
-          condition: ''
+          loopOver: ''
         },
         icon: 'bi bi-list-check'
-      },
-    },
-    {
-      paletteName: 'Repetative Step',
+      }
+  }
+
+  repetaticeStepOp: StepInfo = {
+    paletteName: 'Repetative Step',
       step: {
         template: ProcessStepComponent,
         type: 'repetative-step',
@@ -122,12 +75,16 @@ export class EditorCanvasComponent implements AfterViewInit {
           name: 'Repetative Step',
           prompt: '',
           pythonCode: '',
-          repeatNumber: 0
+          loopOver: ''
         },
         icon: 'bi bi-repeat'
-      },
-    }
+      }
+  }
 
+  customOps = [
+    this.processStepOp,
+    this.conditionalStepOp,
+    this.repetaticeStepOp
   ];
 
   @ViewChild(NgFlowchartCanvasDirective)
@@ -193,7 +150,7 @@ export class EditorCanvasComponent implements AfterViewInit {
   }
 
   showUpload(): void {
-    this.canvas?.getFlow().upload(this.sampleJson);
+    //this.canvas?.getFlow().upload(this.sampleJson);
   }
 
   showFlowData(): void {
