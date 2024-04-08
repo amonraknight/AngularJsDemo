@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +10,9 @@ import { CustomStepComponent } from './custom-step/custom-step.component';
 import { FormStepComponent } from './form-step/form-step.component';
 import { NestedFlowComponent } from './nested-flow/nested-flow.component';
 import { RouteStepComponent } from './custom-step/route-step/route-step.component';
+import { ProcessStepComponent } from './script-steps/process-step/process-step.component';
+import { ConditionalRedirectStepComponent } from './script-steps/conditional-redirect-step/conditional-redirect-step.component';
+import { RepeatStepComponent } from './script-steps/repeat-step/repeat-step.component';
 
 
 @NgModule({
@@ -18,12 +22,16 @@ import { RouteStepComponent } from './custom-step/route-step/route-step.componen
     CustomStepComponent,
     FormStepComponent,
     NestedFlowComponent,
-    RouteStepComponent
+    RouteStepComponent,
+    ProcessStepComponent,
+    ConditionalRedirectStepComponent,
+    RepeatStepComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgFlowchartModule
+    NgFlowchartModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

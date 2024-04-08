@@ -4,6 +4,9 @@ import { CustomStepComponent } from '../custom-step/custom-step.component';
 import { RouteStepComponent } from '../custom-step/route-step/route-step.component';
 import { FormStepComponent } from '../form-step/form-step.component';
 import { NestedFlowComponent } from '../nested-flow/nested-flow.component';
+import { ProcessStepComponent } from '../script-steps/process-step/process-step.component';
+import { ConditionalRedirectStepComponent } from '../script-steps/conditional-redirect-step/conditional-redirect-step.component';
+import { RepeatStepComponent } from '../script-steps/repeat-step/repeat-step.component';
 
 @Component({
   selector: 'app-editor-canvas',
@@ -31,7 +34,8 @@ export class EditorCanvasComponent implements AfterViewInit {
   normalStepTemplate!: TemplateRef<any>;
 
   sampleJson = '{"root":{"id":"s1674421266194","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421267975","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421269738","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},{"id":"s1674421268826","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},"connectors":[{"startStepId":"s1674421269738","endStepId":"s1674421268826"}]}';
-
+/*
+ ** The 
   items = [
     {
       name: 'Logger',
@@ -46,8 +50,10 @@ export class EditorCanvasComponent implements AfterViewInit {
       },
     },
   ];
+*/
 
   customOps = [
+    /*
     {
       paletteName: 'Router',
       step: {
@@ -56,6 +62,7 @@ export class EditorCanvasComponent implements AfterViewInit {
         data: {
           name: 'Routing Block',
         },
+        icon: '#home'
       },
     },
     {
@@ -64,6 +71,7 @@ export class EditorCanvasComponent implements AfterViewInit {
         template: FormStepComponent,
         type: 'form-step',
         data: '123',
+        icon: '#home'
       },
     },
     {
@@ -74,8 +82,52 @@ export class EditorCanvasComponent implements AfterViewInit {
         data: {
           name: 'Nested Flow',
         },
+        icon: '#home'
       },
     },
+    */
+    {
+      paletteName: 'Process Step',
+      step: {
+        template: ProcessStepComponent,
+        type: 'process-step',
+        data: {
+          name: 'Process Step',
+          prompt: '',
+          pythonCode: ''
+        },
+        icon: 'bi bi-terminal'
+      },
+    },
+    {
+      paletteName: 'Conditional Step',
+      step: {
+        template: ProcessStepComponent,
+        type: 'conditional-step',
+        data: {
+          name: 'Conditional Step',
+          prompt: '',
+          pythonCode: '',
+          condition: ''
+        },
+        icon: 'bi bi-list-check'
+      },
+    },
+    {
+      paletteName: 'Repetative Step',
+      step: {
+        template: ProcessStepComponent,
+        type: 'repetative-step',
+        data: {
+          name: 'Repetative Step',
+          prompt: '',
+          pythonCode: '',
+          repeatNumber: 0
+        },
+        icon: 'bi bi-repeat'
+      },
+    }
+
   ];
 
   @ViewChild(NgFlowchartCanvasDirective)

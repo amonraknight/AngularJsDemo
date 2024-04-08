@@ -1,0 +1,21 @@
+.process-step {
+    background: #444;
+    color: white;
+    height: 100px;
+    width: 250px;
+    border-radius: 4px;
+    padding: 1em;
+    display: block;
+  
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+.close-icon {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+}
+.bi {
+  padding: 5px;
+}

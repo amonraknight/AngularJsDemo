@@ -68,7 +68,7 @@ export class CustomStepComponent extends NgFlowchartStepComponent implements OnI
 
   delete() {
     //recursively delete
-    this.destroy(true);
+    this.destroy(false);
   }
 
 }
