@@ -6,19 +6,25 @@
 
 
 <div *ngIf="showModal" class = "popup-modal">
+    
     <div class="modal-content">
         <i class="bi bi-x-circle-fill close-icon" (click)="closeModal()"></i>
-        <div class="mb-3">
-            <label class="form-label">Step Name</label>
-            <input type="text" class="form-control" [(ngModel)]="data.name" />
+            <div class="mb-3">
+                <label class="form-label">Step Name</label>
+                <input type="text" class="form-control" [(ngModel)]="data.name" />
+           </div>
+            <div class="mb-3">
+                <label class="form-label">Python Script</label>
+                <ngx-codemirror [(ngModel)]="data.pythonCode" [options]="{lineNumbers: true, theme: 'material', mode: 'python'}"></ngx-codemirror>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-dark" (click)="closeModal()">save</button>
+                <button type="button" class="btn btn-dark" *ngIf="!showChat" (click)="openChat()">ask AI</button>
+                <button type="button" class="btn btn-dark" *ngIf="showChat" (click)="closeChat()">close chat</button>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Python Script</label>
-            <!--<textarea type="text" class="form-control" placeholder="This is the code area." [(ngModel)]="data.pythonCode" ></textarea> -->
-            <ngx-codemirror [(ngModel)]="data.pythonCode" [options]="{lineNumbers: false, theme: 'material', mode: 'python'}"></ngx-codemirror>
-        </div>
-        
-        <button (click)="closeModal()">save</button>
+    <div class="modal-chat" *ngIf="showChat">
+        <app-chat-box></app-chat-box>
     </div>
 </div>
 

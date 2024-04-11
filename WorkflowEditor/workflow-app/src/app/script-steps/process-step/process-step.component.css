@@ -36,6 +36,16 @@
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: 62%;
-  height: 60%;
+  width: 60%;
+  height: 80%;
+  float: left;
+}
+
+.modal-chat {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 20%;
+  height: 80%;
+  float: right;
 }
