@@ -24,7 +24,7 @@
             </div>
         </div>
     <div class="modal-chat" *ngIf="showChat">
-        <app-chat-box></app-chat-box>
+        <app-chat-box (renewScriptEvent)="renewScript($event)"></app-chat-box>
     </div>
 </div>
 

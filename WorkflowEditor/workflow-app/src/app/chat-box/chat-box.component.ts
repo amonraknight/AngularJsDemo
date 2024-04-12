@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ChatSupportService } from '../services/chat-support.service';
 import { AiReply } from '../interfaces/aireply';
 
@@ -14,6 +14,12 @@ export class ChatBoxComponent {
 
   messages: string[] = [];
  
+  @Output() renewScriptEvent = new EventEmitter<string>();
+
+  renewScript(script: string): void {
+    this.renewScriptEvent.emit(script);
+  }
+
   sendMessage() {
 
     this.messages.push(this.userInput);
@@ -22,7 +28,12 @@ export class ChatBoxComponent {
     this.chatSupportService.sendMessages(this.messages)
       .subscribe(data => {
         //console.log(data)
-        this.messages.push(data.messagereply)
+        this.messages.push(data.messagereply);
+        this.renewScript(data.codereply);
       });
   }
+
+  
+
+  
 }

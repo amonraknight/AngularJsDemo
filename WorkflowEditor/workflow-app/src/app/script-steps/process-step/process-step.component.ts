@@ -42,4 +42,8 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
     this.showChat = false
   }
 
+  renewScript(script: string): void {
+    this.data.pythonCode = script;
+  }
+
 }
