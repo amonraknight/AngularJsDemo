@@ -31,7 +31,7 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
 
   closeModal(): void {
     this.showModal = false
-    // console.log(this.parent)
+    //console.log(this.parent)
   }
 
   openChat(): void {
@@ -44,6 +44,18 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
 
   renewScript(script: string): void {
     this.data.pythonCode = script;
+  }
+
+  //traverse the upstream parents to get the scripts
+  getPredecessorScripts(step: number): string[] {
+    let scripts: string[] = [];
+
+    let eachParent = this.parent;
+    for(let i=0; eachParent && i<step; i++) {
+      scripts.push(eachParent.data.pythonCode);
+      eachParent = eachParent.parent;
+    } 
+    return scripts;
   }
 
 }

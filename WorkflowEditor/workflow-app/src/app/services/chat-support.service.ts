@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AiReply } from '../interfaces/aireply';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { PromptToAI } from '../interfaces/promptToAI';
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +18,20 @@ export class ChatSupportService {
 
   constructor(private http: HttpClient) { }
 
-  sendMessages(messages: string[]): Observable<AiReply> {
+  sendMessages(predecessorScripts: string[], messages: string[]): Observable<AiReply> {
     //console.log(messages)
-    
-    let subscribe = this.http.post<AiReply>(this.aiUrl, messages, this.httpOptions);
+    let promptToAI: PromptToAI = {
+      predecessorScripts: predecessorScripts,
+      messages: messages
+    }
+
+    let subscribe = this.http.post<AiReply>(this.aiUrl, promptToAI, this.httpOptions);
     console.log(subscribe)
     return subscribe
     .pipe(
       tap(() => this.log(`Seceived a reply.`)),
       catchError(this.handleError<AiReply>('post error'))
     );
-    
-    /*
-    return this.http.get<AiReply>(this.aiUrl).pipe(
-      tap(() => this.log(`Seceived a reply.`)),
-      catchError(this.handleError<AiReply>('get error'))
-    );
-    */
   } 
 
   private log(message: string) {

@@ -1,19 +1,9 @@
 <main>
-    
+    <!--The palette-->
     <div id="palette" class="d-flex flex-column text-bg-dark">
       <span class="fs-4">Palette</span>
       <hr>
       <section>
-        <!--<div
-          class="plugin-op"
-          *ngFor="let item of items"
-          [ngFlowchartStep]="{
-            template: normalStep,
-            type: item.type,
-            data: item.data
-          }">
-          <span>{{ item.name }}</span>
-        </div>-->
         <div
           class="plugin-op"
           *ngFor="let op of customOps"
@@ -84,11 +74,41 @@
         </div>
       </ng-template>
     </div>
-    <div
-      id="canvas"
-      ngFlowchartCanvas
-      [ngFlowchartOptions]="options"
-      [ngFlowchartCallbacks]="callbacks"
-      [disabled]="disabled"></div>
- 
+
+    <!--The drop down buttons.-->
+    <div id="rightcolumn">
+      <!-- actions bar-->
+      <div class="d-inline-flex gap-1 text-bg-dark">
+        
+        <button class="btn btn-dark fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <i class="bi bi-play-btn"></i>
+          Execution
+        </button>
+        <button class="btn btn-dark fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+          <i class="bi bi-play-btn"></i>
+          Execution2
+        </button>
+      </div>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+        </div>
+      </div>
+      <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+          Some placeholder content for the collapse component. 
+        </div>
+      </div>
+      
+      
+      <!--The canvas.-->
+      <div
+        id="canvas"
+        ngFlowchartCanvas
+        [ngFlowchartOptions]="options"
+        [ngFlowchartCallbacks]="callbacks"
+        [disabled]="disabled">
+      </div>
+    </div>
+
   </main>

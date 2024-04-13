@@ -19,13 +19,25 @@ export class InMemoryDataService implements InMemoryDbService {
     const collectionName = reqInfo.collectionName;
     let body = reqInfo.utils.getJsonBody(reqInfo.req) || {};
 
-    return reqInfo.utils.createResponse$(() => {
-      const res = this.createResponse(collectionName, body);
-      return this.addDelay(res);
-    });
+    console.log(body);
+
+    if(collectionName=='ai') {
+      return reqInfo.utils.createResponse$(() => {
+        const res = this.createResponseAi(collectionName, body);
+        return this.addDelay(res);
+      });
+    } else {
+      return reqInfo.utils.createResponse$(() => {
+        let res = {
+          status: STATUS.OK
+        }
+        return this.addDelay(res);
+      });
+    }
+    
   }
 
-  private createResponse(collectionName: string, body: any) {
+  private createResponseAi(collectionName: string, body: any) {
     body = {
       "codereply": "# Assuming the data is already loaded into the variable 'dataframe'\n\nclass_counts = dataframe['Class'].value_counts().to_dict()",
       "messagereply": "This is the message reply." 
