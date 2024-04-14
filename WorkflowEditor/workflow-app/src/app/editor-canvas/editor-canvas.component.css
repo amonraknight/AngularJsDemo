@@ -82,3 +82,14 @@
   .bi {
     padding: 5px;
   }
+
+  .card-body {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .exe-button {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }

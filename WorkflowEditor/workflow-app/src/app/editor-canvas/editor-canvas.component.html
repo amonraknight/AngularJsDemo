@@ -79,24 +79,25 @@
     <div id="rightcolumn">
       <!-- actions bar-->
       <div class="d-inline-flex gap-1 text-bg-dark">
-        
         <button class="btn btn-dark fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           <i class="bi bi-play-btn"></i>
           Execution
         </button>
-        <button class="btn btn-dark fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-          <i class="bi bi-play-btn"></i>
-          Execution2
-        </button>
       </div>
       <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-        </div>
-      </div>
-      <div class="collapse" id="collapseExample2">
-        <div class="card card-body">
-          Some placeholder content for the collapse component. 
+        <div class="card-body">
+          <button type="button" class="btn btn-outline-dark exe-button">
+            <i class="bi bi-chevron-double-right"></i>
+            Execute All
+          </button>
+          <button type="button" class="btn btn-outline-dark exe-button">
+            <i class="bi bi-chevron-bar-right"></i>
+            Execute Step
+          </button>
+          <button type="button" class="btn btn-outline-dark exe-button">
+            <i class="bi bi-chevron-right"></i>
+            Execute All Since
+          </button>
         </div>
       </div>
       
