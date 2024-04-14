@@ -45,7 +45,8 @@ export class EditorCanvasComponent implements AfterViewInit {
           name: 'Process Step',
           prompt: '',
           pythonCode: '',
-          loopOver: ''
+          loopOver: '',
+          focused: false
         },
         icon: 'bi bi-terminal'
       }
@@ -60,7 +61,8 @@ export class EditorCanvasComponent implements AfterViewInit {
           name: 'Conditional Step',
           prompt: '',
           pythonCode: '',
-          loopOver: ''
+          loopOver: '',
+          focused: false
         },
         icon: 'bi bi-list-check'
       }
@@ -75,8 +77,10 @@ export class EditorCanvasComponent implements AfterViewInit {
           name: 'Repetative Step',
           prompt: '',
           pythonCode: '',
-          loopOver: ''
+          loopOver: '',
+          focused: false
         },
+        
         icon: 'bi bi-repeat'
       }
   }

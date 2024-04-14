@@ -10,6 +10,19 @@
     flex-direction: column;
     justify-content: space-between;
   }
+
+.process-step-focused {
+    background: #ff7220;
+    color: rgb(0, 0, 0);
+    height: 100px;
+    width: 250px;
+    border-radius: 4px;
+    padding: 1em;
+    display: block;
+  
+    flex-direction: column;
+    justify-content: space-between;
+}
   
 .close-icon {
   position: absolute;
@@ -48,4 +61,8 @@
   width: 20%;
   height: 80%;
   float: right;
+}
+
+.step-btns {
+  margin: 5px;
 }

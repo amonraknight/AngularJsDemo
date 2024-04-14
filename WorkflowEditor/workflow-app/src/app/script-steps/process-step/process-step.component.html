@@ -1,12 +1,16 @@
-<div class="process-step" #canvasContent (click)="openModal()">
+<div [class]="data.focused ?  stepClassFocused:stepClassNoFocus" #canvasContent (click)="setFocus()">
     <i class="bi bi-terminal" width="16" height="16" fill="currentColor"></i>
     <span>{{ data.name }}</span>
-    <i class="bi bi-x-circle-fill close-icon" (click)="delete()"></i>
+    <!--<i class="bi bi-x-circle-fill close-icon" (click)="delete()"></i>-->
+
+    <div class="btn-group step-btns" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-light" (click)="openModal()">Open Detail</button>
+        <button type="button" class="btn btn-outline-light" (click)="delete()">Delete</button>
+      </div>
 </div>
 
 
 <div *ngIf="showModal" class = "popup-modal">
-    
     <div class="modal-content">
         <i class="bi bi-x-circle-fill close-icon" (click)="closeModal()"></i>
             <div class="mb-3">

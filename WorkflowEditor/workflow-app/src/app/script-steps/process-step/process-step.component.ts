@@ -8,6 +8,13 @@ import { NgFlowchartStepComponent, NgFlowchart } from '@joelwenzel/ng-flowchart'
 })
 export class ProcessStepComponent extends NgFlowchartStepComponent implements OnInit {
 
+  showModal = false;
+  showChat = false;
+  stepClass = "process-step";
+  stepClassNoFocus = "process-step";
+  stepClassFocused = "process-step-focused";
+
+
   override ngOnInit(): void {
     
   }
@@ -22,8 +29,7 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
     this.destroy(false);
   }
 
-  showModal = false
-  showChat = false
+  
 
   openModal(): void {
     this.showModal = true
@@ -56,6 +62,31 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
       eachParent = eachParent.parent;
     } 
     return scripts;
+  }
+
+  setFocus(): void {
+    this._removeAllFocus();
+    this.data.focused = !this.data.focused
+    
+  }
+  //Remove all focus before setting the focus
+  _removeAllFocus(): void {
+    //console.log(this.canvas);
+
+    let currentStep = this.canvas.flow.rootStep;
+    this._removeFocusCascade(currentStep);
+
+  }
+
+  _removeFocusCascade(currentStep: NgFlowchartStepComponent): void {
+    currentStep.data.focused = false;
+    if(currentStep.children) {
+      currentStep.children.map(eachChild => {
+        this._removeFocusCascade(eachChild);
+      });
+      
+    }
+    
   }
 
 }
