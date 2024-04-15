@@ -8,6 +8,7 @@ import { ProcessStepComponent } from '../script-steps/process-step/process-step.
 import { ConditionalRedirectStepComponent } from '../script-steps/conditional-redirect-step/conditional-redirect-step.component';
 import { RepeatStepComponent } from '../script-steps/repeat-step/repeat-step.component';
 import { StepInfo } from '../interfaces/stepInfo'
+import { ExecutionSupportService } from '../services/execution-support.service';
 
 @Component({
   selector: 'app-editor-canvas',
@@ -106,7 +107,7 @@ export class EditorCanvasComponent implements AfterViewInit {
     this.showUpload();
   }
 
-  constructor(private stepRegistry: NgFlowchartStepRegistry) {
+  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService) {
     this.callbacks.onDropError = this.onDropError;
     this.callbacks.onMoveError = this.onMoveError;
     this.callbacks.afterDeleteStep = this.afterDeleteStep;
@@ -205,6 +206,33 @@ export class EditorCanvasComponent implements AfterViewInit {
   }
   onReset(): void {
     this.canvas?.setScale(1);
+  }
+
+  executeAll():void {
+    if(this.canvas) {
+      //EXECUTE_ALL, EXECUTE_STEP, EXECUTE_ALL_SINCE
+      this.executionSupportService.requestExection('EXECUTE_ALL', this.canvas?.getFlow().toJSON(4)).subscribe(data => {
+        console.log(data)
+      });
+    }
+  }
+
+  executeStep():void {
+    if(this.canvas) {
+      //EXECUTE_ALL, EXECUTE_STEP, EXECUTE_ALL_SINCE
+      this.executionSupportService.requestExection('EXECUTE_STEP', this.canvas?.getFlow().toJSON(4)).subscribe(data => {
+        console.log(data)
+      });
+    }
+  }
+
+  executeAllSince():void {
+    if(this.canvas) {
+      //EXECUTE_ALL, EXECUTE_STEP, EXECUTE_ALL_SINCE
+      this.executionSupportService.requestExection('EXECUTE_ALL_SINCE', this.canvas?.getFlow().toJSON(4)).subscribe(data => {
+        console.log(data)
+      });
+    }
   }
 }
 

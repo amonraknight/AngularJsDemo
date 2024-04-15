@@ -86,15 +86,15 @@
       </div>
       <div class="collapse" id="collapseExample">
         <div class="card-body">
-          <button type="button" class="btn btn-outline-dark exe-button">
+          <button type="button" class="btn btn-outline-dark exe-button" (click)="executeAll()">
             <i class="bi bi-chevron-double-right"></i>
             Execute All
           </button>
-          <button type="button" class="btn btn-outline-dark exe-button">
+          <button type="button" class="btn btn-outline-dark exe-button" (click)="executeStep()">
             <i class="bi bi-chevron-bar-right"></i>
             Execute Step
           </button>
-          <button type="button" class="btn btn-outline-dark exe-button">
+          <button type="button" class="btn btn-outline-dark exe-button" (click)="executeAllSince()">
             <i class="bi bi-chevron-right"></i>
             Execute All Since
           </button>

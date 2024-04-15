@@ -65,8 +65,13 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
   }
 
   setFocus(): void {
-    this._removeAllFocus();
-    this.data.focused = !this.data.focused
+    if(this.data.focused) {
+      this.data.focused = false;
+    }
+    else {
+      this._removeAllFocus();
+      this.data.focused = true;
+    }
     
   }
   //Remove all focus before setting the focus
