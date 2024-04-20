@@ -16,7 +16,20 @@
   .message {
     width: 80%;
     border-bottom: 1px solid #eee;
+    margin: 10px;
+    border-radius: 5px;
   }
+
+  .user-message {
+    background-color: rgba(90, 88, 88, 0.479);
+    text-align: right;
+  }
+
+  .assistant-message {
+    background-color: chartreuse;
+    text-align: left;
+  }
+
   .input{
     width: 100%;
   }

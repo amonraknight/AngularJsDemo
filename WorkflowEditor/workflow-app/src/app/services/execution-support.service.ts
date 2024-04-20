@@ -12,7 +12,8 @@ import { CommonRequestService } from './common-request.service';
 export class ExecutionSupportService extends CommonRequestService {
   
   // For test
-  private executionUrl = 'api/result';
+  // private executionUrl = 'api/result';
+  private executionUrl = 'http://127.0.0.1:8100/flowchartagent/executescript';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

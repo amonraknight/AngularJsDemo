@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ChatSupportService } from '../services/chat-support.service';
+import { ChatMessage } from '../interfaces/chatMessage';
 
 @Component({
   selector: 'app-chat-box',
@@ -11,7 +12,7 @@ export class ChatBoxComponent {
 
   userInput!: string
 
-  messages: string[] = [];
+  messages: ChatMessage[] = [];
   //The python scripts from the predecessors, the lower the index, the closer to the current step.
   @Input({required: true}) predecessorSteps!: string[];
   @Output() renewScriptEvent = new EventEmitter<string>();
@@ -21,14 +22,21 @@ export class ChatBoxComponent {
   }
 
   sendMessage() {
-
-    this.messages.push(this.userInput);
+    let userMessage: ChatMessage = {
+      role: 'user',
+      message: this.userInput
+    };
+    this.messages.push(userMessage);
     this.userInput = '';
 
     this.chatSupportService.sendMessages(this.predecessorSteps, this.messages)
       .subscribe(data => {
         //console.log(data)
-        this.messages.push(data.messagereply);
+        let assistantMessage: ChatMessage = {
+          role: 'assistant',
+          message: data.messagereply
+        };
+        this.messages.push(assistantMessage);
         this.renewScript(data.codereply);
       });
   }

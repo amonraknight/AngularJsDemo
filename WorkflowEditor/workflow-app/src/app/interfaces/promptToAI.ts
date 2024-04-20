@@ -1,4 +1,6 @@
+import { ChatMessage } from "./chatMessage";
+
 export interface PromptToAI {
     predecessorScripts: string[];
-    messages: string[];
+    messages: ChatMessage[];
 }

@@ -42,9 +42,12 @@ import 'node_modules/codemirror/mode/python/python.js';
     FormsModule,
     CodemirrorModule,
     HttpClientModule,
+    /*
+    * Open it to enable mocking.
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )
+    */
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,20 +5,21 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { PromptToAI } from '../interfaces/promptToAI';
 import { CommonRequestService } from './common-request.service';
-
+import { ChatMessage } from '../interfaces/chatMessage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatSupportService extends CommonRequestService {
 
-  private aiUrl = 'api/ai';
+  //private aiUrl = 'api/ai';
+  private aiUrl = 'http://127.0.0.1:8100/aiagent/getaireply';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   };
 
-  sendMessages(predecessorScripts: string[], messages: string[]): Observable<AiReply> {
+  sendMessages(predecessorScripts: string[], messages: ChatMessage[]): Observable<AiReply> {
     //console.log(messages)
     let promptToAI: PromptToAI = {
       predecessorScripts: predecessorScripts,
