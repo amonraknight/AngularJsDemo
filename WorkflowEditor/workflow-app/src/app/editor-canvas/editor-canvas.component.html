@@ -1,7 +1,8 @@
 <main>
     <!--The palette-->
     <div id="palette" class="d-flex flex-column text-bg-dark">
-      <span class="fs-4">Palette</span>
+      <span class="fs-4" *ngIf="!workflowNameInEdit" (click)="editWorkflowName()">{{workflowName}}</span>
+      <input id="workflowNameInput"  type="text" *ngIf="workflowNameInEdit" [(ngModel)]="workflowName" (blur)="editWorkflowName()" />
       <hr>
       <section>
         <div
@@ -13,11 +14,12 @@
         </div>
         
       </section>
-  
+  <!--
       <section>
         <button (click)="showFlowData()">Show JSON</button>
         <button (click)="showUpload()">Upload JSON</button>
       </section>
+  -->
       <section>
         <div class="sub-section">
           <label for="step-gap-select" class="wide">Step Gap</label>
@@ -33,31 +35,37 @@
           </select>
         </div>
         <div class="sub-section">
-          <label for="sequential">Sequential</label>
           <input
             #input_1
             type="checkbox"
             name="sequential"
             (change)="onSequentialChange(input_1.checked)" />
+          <label for="sequential">Sequential</label>
+          
         </div>
         <div class="sub-section">
-          <label for="orientation">Horizontal Orientation</label>
           <input
             #input_2
             type="checkbox"
             name="orientation"
             (change)="onOrientationChange(input_2.checked)" />
+          <label for="orientation">Horizontal Orientation</label>
+          
         </div>
         <div class="sub-section">
-          <label for="disabled">Disabled</label>
           <input
             type="checkbox"
             name="disabled"
             (change)="disabled = $any($event).target.checked" />
+          <label for="disabled">Disabled</label>
+          
         </div>
       </section>
       <section>
-        <button (click)="clearData()">Clear Flow</button>
+        <button class="btn btn-dark fs-4" type="button" (click)="clearData()">
+          <i class="bi bi-trash3"></i>
+          Clear Flow
+        </button>
       </section>
       <section>
         <button (click)="onGrow()">+</button>
@@ -79,9 +87,17 @@
     <div id="rightcolumn">
       <!-- actions bar-->
       <div class="d-inline-flex gap-1 text-bg-dark">
+        <button class="btn btn-dark fs-4" type="button" (click)="saveWorkflow()">
+          <i class="bi bi-save"></i>
+          Save
+        </button>
+        <button class="btn btn-dark fs-4" type="button" (click)="showFlowData()">
+          <i class="bi bi-download"></i>
+          Export
+        </button>
         <button class="btn btn-dark fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           <i class="bi bi-play-btn"></i>
-          Execution
+          Execute
         </button>
       </div>
       <div class="collapse" id="collapseExample">

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { NgFlowchart, NgFlowchartStepRegistry, NgFlowchartCanvasDirective } from '@joelwenzel/ng-flowchart';
 import { CustomStepComponent } from '../custom-step/custom-step.component';
 import { RouteStepComponent } from '../custom-step/route-step/route-step.component';
@@ -87,15 +87,19 @@ export class EditorCanvasComponent implements AfterViewInit {
   }
 
   customOps = [
-    this.processStepOp,
+    this.processStepOp
+    /*
     this.conditionalStepOp,
     this.repetaticeStepOp
+    */
   ];
 
   @ViewChild(NgFlowchartCanvasDirective)
   canvas: NgFlowchartCanvasDirective | undefined;
 
   disabled = false;
+  workflowNameInEdit = false;
+  workflowName = 'My Workflow';
 
   ngAfterViewInit() {
     // this.stepRegistry.registerStep('rest-get', this.normalStepTemplate);
@@ -107,7 +111,7 @@ export class EditorCanvasComponent implements AfterViewInit {
     this.showUpload();
   }
 
-  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService) {
+  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService, private eleRef: ElementRef) {
     this.callbacks.onDropError = this.onDropError;
     this.callbacks.onMoveError = this.onMoveError;
     this.callbacks.afterDeleteStep = this.afterDeleteStep;
@@ -230,6 +234,24 @@ export class EditorCanvasComponent implements AfterViewInit {
     if(this.canvas) {
       //EXECUTE_ALL, EXECUTE_STEP, EXECUTE_ALL_SINCE
       this.executionSupportService.requestExection('EXECUTE_ALL_SINCE', this.canvas?.getFlow().toJSON(4)).subscribe(data => {
+        console.log(data)
+      });
+    }
+  }
+
+  editWorkflowName(): void {
+    this.workflowNameInEdit = !this.workflowNameInEdit;
+    if(this.workflowNameInEdit) {
+      setTimeout(() => {
+        this.eleRef.nativeElement.querySelector('#workflowNameInput').focus();
+      }, 100)
+    }
+
+  }
+
+  saveWorkflow():void {
+    if(this.canvas) {
+      this.executionSupportService.requestSaveWorkflow(this.workflowName, this.canvas?.getFlow().toJSON(4)).subscribe(data => {
         console.log(data)
       });
     }

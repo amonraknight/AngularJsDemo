@@ -24,7 +24,7 @@ export class ChatBoxComponent {
   sendMessage() {
     let userMessage: ChatMessage = {
       role: 'user',
-      message: this.userInput
+      content: this.userInput
     };
     this.messages.push(userMessage);
     this.userInput = '';
@@ -34,7 +34,7 @@ export class ChatBoxComponent {
         //console.log(data)
         let assistantMessage: ChatMessage = {
           role: 'assistant',
-          message: data.messagereply
+          content: data.messagereply
         };
         this.messages.push(assistantMessage);
         this.renewScript(data.codereply);
