@@ -1,5 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { NgFlowchartStepComponent, NgFlowchart } from '@joelwenzel/ng-flowchart';
+import { StepInfo } from 'src/app/interfaces/stepInfo';
+import { StepEditorCommunicationService } from 'src/app/services/step-editor-communication.service';
+
 
 @Component({
   selector: 'app-process-step',
@@ -8,11 +11,17 @@ import { NgFlowchartStepComponent, NgFlowchart } from '@joelwenzel/ng-flowchart'
 })
 export class ProcessStepComponent extends NgFlowchartStepComponent implements OnInit {
 
+
   showModal = false;
   showChat = false;
   stepClass = "process-step";
   stepClassNoFocus = "process-step";
   stepClassFocused = "process-step-focused";
+
+
+  constructor(private stepEditorCommunicationService: StepEditorCommunicationService) {
+    super();
+  }
 
 
   override ngOnInit(): void {
@@ -92,6 +101,20 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
       
     }
     
+  }
+
+  saveAsCustomizedStep(): void {
+    let thisStepInfo: StepInfo = {
+      paletteName: this.data.name,
+        step: {
+          template: ProcessStepComponent,
+          type: 'process-step',
+          data: this.data,
+          icon: 'bi bi-terminal'
+        }
+    }
+
+    this.stepEditorCommunicationService.addCustomizedStep(thisStepInfo);
   }
 
 }

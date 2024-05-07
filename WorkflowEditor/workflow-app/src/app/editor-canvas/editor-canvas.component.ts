@@ -9,12 +9,14 @@ import { ConditionalRedirectStepComponent } from '../script-steps/conditional-re
 import { RepeatStepComponent } from '../script-steps/repeat-step/repeat-step.component';
 import { StepInfo } from '../interfaces/stepInfo'
 import { ExecutionSupportService } from '../services/execution-support.service';
+import { StepEditorCommunicationService } from '../services/step-editor-communication.service';
 
 @Component({
   selector: 'app-editor-canvas',
   templateUrl: './editor-canvas.component.html',
   styleUrls: ['./editor-canvas.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [StepEditorCommunicationService]
 })
 
 export class EditorCanvasComponent implements AfterViewInit {
@@ -111,7 +113,7 @@ export class EditorCanvasComponent implements AfterViewInit {
     this.showUpload();
   }
 
-  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService, private eleRef: ElementRef) {
+  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService, private eleRef: ElementRef, private stepEditorCommunicationService: StepEditorCommunicationService) {
     this.callbacks.onDropError = this.onDropError;
     this.callbacks.onMoveError = this.onMoveError;
     this.callbacks.afterDeleteStep = this.afterDeleteStep;
@@ -119,6 +121,13 @@ export class EditorCanvasComponent implements AfterViewInit {
     this.callbacks.onLinkConnector = this.onLinkConnector;
     this.callbacks.afterDeleteConnector = this.afterDeleteConnector;
     this.callbacks.afterScale = this.afterScale.bind(this);
+
+    //Inter-component communication
+    stepEditorCommunicationService.customizeStep$.subscribe(
+      stepInfo => {
+        this.customOps.push(stepInfo);
+      }
+    )
   }
 
   onDropError(error: NgFlowchart.DropError): void {

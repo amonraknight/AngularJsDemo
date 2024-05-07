@@ -22,7 +22,7 @@
                 <ngx-codemirror [(ngModel)]="data.pythonCode" [options]="{lineNumbers: true, theme: 'material', mode: 'python'}"></ngx-codemirror>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-dark" >save as customized step</button>
+                <button type="button" class="btn btn-dark" (click)="saveAsCustomizedStep()">save as customized step</button>
                 <button type="button" class="btn btn-dark" *ngIf="!showChat" (click)="openChat()">ask AI</button>
                 <button type="button" class="btn btn-dark" *ngIf="showChat" (click)="closeChat()">close chat</button>
             </div>
