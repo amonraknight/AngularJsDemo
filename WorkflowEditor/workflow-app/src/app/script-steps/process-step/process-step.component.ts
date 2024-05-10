@@ -108,7 +108,7 @@ export class ProcessStepComponent extends NgFlowchartStepComponent implements On
       paletteName: this.data.name,
         step: {
           template: ProcessStepComponent,
-          type: 'process-step',
+          type: this.type,
           data: this.data,
           icon: 'bi bi-terminal'
         }

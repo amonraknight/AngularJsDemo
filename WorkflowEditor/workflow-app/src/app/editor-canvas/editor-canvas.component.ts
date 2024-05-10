@@ -38,7 +38,7 @@ export class EditorCanvasComponent implements AfterViewInit {
   normalStepTemplate!: TemplateRef<any>;
 
   //sampleJson = '{"root":{"id":"s1674421266194","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421267975","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[{"id":"s1674421269738","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},{"id":"s1674421268826","type":"log","data":{"name":"Log","icon":{"name":"log-icon","color":"blue"},"config":{"message":null,"severity":null}},"children":[]}]},"connectors":[{"startStepId":"s1674421269738","endStepId":"s1674421268826"}]}';
-  sampleJson = '{"root":{"id":"s1712564629305","type":"process-step","data":{"name":"ProcessStep","prompt":"","pythonCode":"","loopOver":""},"children":[{"id":"s1712564631270","type":"conditional-step","data":{"name":"ConditionalStep","prompt":"","pythonCode":"","loopOver":""},"children":[]},{"id":"s1712564634885","type":"process-step","data":{"name":"ProcessStep","prompt":"","pythonCode":"","loopOver":""},"children":[{"id":"s1712564637053","type":"repetative-step","data":{"name":"RepetativeStep","prompt":"","pythonCode":"","loopOver":""},"children":[]}]}]},"connectors":[]}'
+  sampleJson = '{"root": {"id": "s1715319429481","type": "process-step","data": {"name": "Process Step1","prompt": "","pythonCode": "111","loopOver": "","focused": false},"children": [{"id": "s1715319434481","type": "process-step","data": {"name": "Process Step2","prompt": "","pythonCode": "222","loopOver": "","focused": false},"children": []},{"id": "s1715319430974","type": "process-step","data": {"name": "Process Step3","prompt": "","pythonCode": "333","loopOver": "","focused": false},"children": []}]},"connectors": []}'
   processStepOp: StepInfo = {
     paletteName: 'Process Step',
       step: {
@@ -105,11 +105,12 @@ export class EditorCanvasComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // this.stepRegistry.registerStep('rest-get', this.normalStepTemplate);
-    this.stepRegistry.registerStep('log', this.normalStepTemplate);
-    this.stepRegistry.registerStep('router', CustomStepComponent);
-    this.stepRegistry.registerStep('nested-flow', NestedFlowComponent);
-    this.stepRegistry.registerStep('form-step', FormStepComponent);
-    this.stepRegistry.registerStep('route-step', RouteStepComponent);
+    //this.stepRegistry.registerStep('log', this.normalStepTemplate);
+    //this.stepRegistry.registerStep('router', CustomStepComponent);
+    //this.stepRegistry.registerStep('nested-flow', NestedFlowComponent);
+    //this.stepRegistry.registerStep('form-step', FormStepComponent);
+    //this.stepRegistry.registerStep('route-step', RouteStepComponent);
+    this.stepRegistry.registerStep('process-step', ProcessStepComponent);
     this.showUpload();
   }
 
@@ -168,7 +169,7 @@ export class EditorCanvasComponent implements AfterViewInit {
   }
 
   showUpload(): void {
-    //this.canvas?.getFlow().upload(this.sampleJson);
+    this.canvas?.getFlow().upload(this.sampleJson);
   }
 
   showFlowData(): void {
