@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { PromptToAI } from '../interfaces/promptToAI';
 import { CommonRequestService } from './common-request.service';
 import { ChatMessage } from '../interfaces/chatMessage';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { ChatMessage } from '../interfaces/chatMessage';
 export class ChatSupportService extends CommonRequestService {
 
   //private aiUrl = 'api/ai';
-  private aiUrl = 'http://127.0.0.1:8100/aiagent/getaireply';
+  private aiUrl = environment.baseServerUrl + '/aiagent/getaireply';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})

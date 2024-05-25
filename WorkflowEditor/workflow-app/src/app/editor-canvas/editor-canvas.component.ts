@@ -10,6 +10,7 @@ import { RepeatStepComponent } from '../script-steps/repeat-step/repeat-step.com
 import { StepInfo } from '../interfaces/stepInfo'
 import { ExecutionSupportService } from '../services/execution-support.service';
 import { StepEditorCommunicationService } from '../services/step-editor-communication.service';
+import { CustomizationSupportService } from '../services/customization-support.service';
 
 @Component({
   selector: 'app-editor-canvas',
@@ -112,9 +113,15 @@ export class EditorCanvasComponent implements AfterViewInit {
     //this.stepRegistry.registerStep('route-step', RouteStepComponent);
     this.stepRegistry.registerStep('process-step', ProcessStepComponent);
     this.showUpload();
+    this.loadCustomizedSteps();
   }
 
-  constructor(private stepRegistry: NgFlowchartStepRegistry, private executionSupportService: ExecutionSupportService, private eleRef: ElementRef, private stepEditorCommunicationService: StepEditorCommunicationService) {
+  constructor(private stepRegistry: NgFlowchartStepRegistry, 
+    private executionSupportService: ExecutionSupportService,
+    private customizationSupportService: CustomizationSupportService, 
+    private eleRef: ElementRef, 
+    private stepEditorCommunicationService: StepEditorCommunicationService
+  ) {
     this.callbacks.onDropError = this.onDropError;
     this.callbacks.onMoveError = this.onMoveError;
     this.callbacks.afterDeleteStep = this.afterDeleteStep;
@@ -127,6 +134,7 @@ export class EditorCanvasComponent implements AfterViewInit {
     stepEditorCommunicationService.customizeStep$.subscribe(
       stepInfo => {
         this.customOps.push(stepInfo);
+
       }
     )
   }
@@ -266,6 +274,31 @@ export class EditorCanvasComponent implements AfterViewInit {
       });
     }
   }
+
+  loadCustomizedSteps(): void {
+    this.customizationSupportService.requestForAllSteps().subscribe(data => {
+      for (let eachProcessor of data.processors) {
+        let currentStep: StepInfo = {
+          paletteName: eachProcessor.name,
+            step: {
+              template: ProcessStepComponent,
+              type: 'process-step',
+              data: {
+                name: eachProcessor.name,
+                prompt: eachProcessor.prompt,
+                pythonCode: eachProcessor.pythonCode,
+                loopOver: eachProcessor.loopOver,
+                focused: false
+              },
+              icon: 'bi bi-terminal'
+            }
+        }
+
+        this.customOps.push(currentStep)
+      }
+    })
+  }
+  
 }
 
 

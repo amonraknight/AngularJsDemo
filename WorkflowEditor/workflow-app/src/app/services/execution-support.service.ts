@@ -5,6 +5,7 @@ import { ExecutionResult } from '../interfaces/executionResult';
 import { ExecuteRequestBody } from '../interfaces/executeRequestBody';
 import { catchError, tap } from 'rxjs/operators';
 import { CommonRequestService } from './common-request.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class ExecutionSupportService extends CommonRequestService {
   
   // For test
   // private executionUrl = 'api/result';
-  private executionUrl = 'http://127.0.0.1:8100/flowchartagent/executescript';
-  private saveWorkflowUrl = 'http://127.0.0.1:8100/flowchartagent/saveworkflow';
+  private executionUrl = environment.baseServerUrl + '/flowchartagent/executescript';
+  private saveWorkflowUrl = environment.baseServerUrl + '/flowchartagent/saveworkflow';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
