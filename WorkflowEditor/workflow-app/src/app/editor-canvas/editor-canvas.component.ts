@@ -11,6 +11,7 @@ import { StepInfo } from '../interfaces/stepInfo'
 import { ExecutionSupportService } from '../services/execution-support.service';
 import { StepEditorCommunicationService } from '../services/step-editor-communication.service';
 import { CustomizationSupportService } from '../services/customization-support.service';
+import { ApplicationRef } from '@angular/core';
 
 @Component({
   selector: 'app-editor-canvas',
@@ -50,12 +51,13 @@ export class EditorCanvasComponent implements AfterViewInit {
           prompt: '',
           pythonCode: '',
           loopOver: '',
-          focused: false
+          focused: false,
+          id: 0
         },
         icon: 'bi bi-terminal'
       }
   }
-
+/*
   conditionalStepOp: StepInfo = {
     paletteName: 'Conditional Step',
       step: {
@@ -88,7 +90,7 @@ export class EditorCanvasComponent implements AfterViewInit {
         icon: 'bi bi-repeat'
       }
   }
-
+*/
   customOps = [
     this.processStepOp
     /*
@@ -120,7 +122,8 @@ export class EditorCanvasComponent implements AfterViewInit {
     private executionSupportService: ExecutionSupportService,
     private customizationSupportService: CustomizationSupportService, 
     private eleRef: ElementRef, 
-    private stepEditorCommunicationService: StepEditorCommunicationService
+    private stepEditorCommunicationService: StepEditorCommunicationService,
+    private appRef: ApplicationRef
   ) {
     this.callbacks.onDropError = this.onDropError;
     this.callbacks.onMoveError = this.onMoveError;
@@ -133,8 +136,8 @@ export class EditorCanvasComponent implements AfterViewInit {
     //Inter-component communication
     stepEditorCommunicationService.customizeStep$.subscribe(
       stepInfo => {
-        this.customOps.push(stepInfo);
-
+        
+        this.addCustomizedStep(stepInfo);
       }
     )
   }
@@ -288,7 +291,8 @@ export class EditorCanvasComponent implements AfterViewInit {
                 prompt: eachProcessor.prompt,
                 pythonCode: eachProcessor.pythonCode,
                 loopOver: eachProcessor.loopOver,
-                focused: false
+                focused: false,
+                id: eachProcessor.id
               },
               icon: 'bi bi-terminal'
             }
@@ -298,7 +302,32 @@ export class EditorCanvasComponent implements AfterViewInit {
       }
     })
   }
+
+  addCustomizedStep(stepInfo: StepInfo): void {
+     
+    this.customizationSupportService.requestSaveStep(stepInfo, 1).subscribe(response => {
+
+      if(response.data.processorID) {
+        stepInfo.step.data.id = response.data.processorID;
+
+        
+        this.customOps.push(stepInfo);
+      }
+      this.appRef.tick();
+    })
+  }
   
+  deleteCustomizedStep(customizedStepId: number) {
+    this.customizationSupportService.requestDeleteStep(customizedStepId).subscribe(response => {
+      console.log(response);
+      //Refresh the processor list
+      this.customOps = [
+        this.processStepOp
+      ];
+      this.loadCustomizedSteps();
+      this.appRef.tick();
+    })
+  }
 }
 
 

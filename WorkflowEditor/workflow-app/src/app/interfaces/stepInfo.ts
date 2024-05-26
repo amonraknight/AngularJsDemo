@@ -8,7 +8,8 @@ export interface StepInfo {
           prompt: string,
           pythonCode: string,
           loopOver: string,
-          focused: boolean
+          focused: boolean,
+          id: number
         },
         icon: string
     }

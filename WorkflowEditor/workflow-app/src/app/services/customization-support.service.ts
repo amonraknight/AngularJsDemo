@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ExecutionResult } from '../interfaces/executionResult';
 import { catchError, tap } from 'rxjs/operators';
 import { StepInfo } from '../interfaces/stepInfo';
+import { ResponseFromBack } from '../interfaces/responseFromBack';
 
 
 @Injectable({
@@ -41,22 +42,23 @@ export class CustomizationSupportService extends CommonRequestService {
     return this.http.get<any>(url)
   }
 
-  requestSaveStep(stepInfo: StepInfo, createrID: number ): Observable<ExecutionResult> {
+  requestSaveStep(stepInfo: StepInfo, createrID: number ): Observable<ResponseFromBack> {
     
     let saveStepRequest = {
       processorName: stepInfo.step.data.name,
 	    createrID: createrID,
-	    data: stepInfo.step.data
+	    data: stepInfo.step.data,
+      id: stepInfo.step.data.id
     }
-    let subscribe = this.http.post<ExecutionResult>(this.saveCustomizedStepUrl, saveStepRequest, this.httpOptions);
+    let subscribe = this.http.post<ResponseFromBack>(this.saveCustomizedStepUrl, saveStepRequest, this.httpOptions);
     return subscribe
     .pipe(
       tap(() => this.log('Received a reply.')),
-      catchError(this.handleError<ExecutionResult>('post error'))
+      catchError(this.handleError<ResponseFromBack>('post error'))
     );
   }
 
-  requestSaveWorkflow(workflowID: number, workflowName: string, description: string, workflowJson: string, createrID: number): Observable<ExecutionResult> {
+  requestSaveWorkflow(workflowID: number, workflowName: string, description: string, workflowJson: string, createrID: number): Observable<ResponseFromBack> {
 
     let saveWorkflowRequest = {
       workflowID: workflowID, 
@@ -66,22 +68,32 @@ export class CustomizationSupportService extends CommonRequestService {
       createrID: createrID
     }
 
-    let subscribe = this.http.post<ExecutionResult>(this.saveWorkflowUrl, saveWorkflowRequest, this.httpOptions);
+    let subscribe = this.http.post<ResponseFromBack>(this.saveWorkflowUrl, saveWorkflowRequest, this.httpOptions);
     return subscribe
     .pipe(
       tap(() => this.log('Received a reply.')),
-      catchError(this.handleError<ExecutionResult>('post error'))
+      catchError(this.handleError<ResponseFromBack>('post error'))
     );
   }
 
-  requestDeleteStep(processorID: number): Observable<any> {
+  requestDeleteStep(processorID: number): Observable<ResponseFromBack> {
     let url = this.deleteStepUrl + processorID;
-    return this.http.delete(url);
+    let subscribe = this.http.delete<ResponseFromBack>(url);
+    return subscribe
+    .pipe(
+      tap(() => this.log('Received a reply.')),
+      catchError(this.handleError<ResponseFromBack>('delete error'))
+    );
   }
   
-  requestWorkflowStep(processorID: number): Observable<any> {
+  requestWorkflowStep(processorID: number): Observable<ResponseFromBack> {
     let url = this.deleteWorkflowUrl + processorID;
-    return this.http.delete(url);
+    let subscribe = this.http.delete<ResponseFromBack>(url);
+    return subscribe
+    .pipe(
+      tap(() => this.log('Received a reply.')),
+      catchError(this.handleError<ResponseFromBack>('delete error'))
+    );
   }
 
 }
