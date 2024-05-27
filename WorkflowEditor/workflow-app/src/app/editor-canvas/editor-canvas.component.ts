@@ -106,6 +106,9 @@ export class EditorCanvasComponent implements AfterViewInit {
   workflowNameInEdit = false;
   workflowName = 'My Workflow';
 
+  // The choosen processor to delete
+  stepToDelete: StepInfo = this.processStepOp;
+
   ngAfterViewInit() {
     // this.stepRegistry.registerStep('rest-get', this.normalStepTemplate);
     //this.stepRegistry.registerStep('log', this.normalStepTemplate);
